@@ -1,6 +1,7 @@
 package com.example.FlowFree;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gvendur Stefáns on 11.9.2014.
@@ -37,5 +38,10 @@ public class LineInfo {
 	public void addToCellPath(Cellpath p, Coordinate c){
 		//TODO: Implement
 		//The logic of legal additions should be called in this function
+		List<Coordinate> coordinateList = p.getCoordinates();
+		Coordinate last = coordinateList.get(coordinateList.size()-1);
+		if(last.areNeighbours(c)){
+			p.append(c);
+		}
 	}
 }

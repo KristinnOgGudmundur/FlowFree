@@ -111,10 +111,6 @@ public class Board extends View {
 		}
     }
 
-    private boolean areNeighbours( int c1, int r1, int c2, int r2 ) {
-        return Math.abs(c1-c2) + Math.abs(r1-r2) == 1;
-    }
-
     @Override
     public boolean onTouchEvent( MotionEvent event ) {
 
@@ -138,12 +134,8 @@ public class Board extends View {
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
             if ( !m_currentCellPath.isEmpty() ) {
-                List<Coordinate> coordinateList = m_currentCellPath.getCoordinates();
-                Coordinate last = coordinateList.get(coordinateList.size()-1);
-                if(last.areNeighbours(theCoordinate)){
-                    m_currentCellPath.append(new Coordinate(c, r));
-                    invalidate();
-                }
+				m_lineInfo.addToCellPath(m_currentCellPath, theCoordinate);
+				invalidate();
             }
         }
         return true;
