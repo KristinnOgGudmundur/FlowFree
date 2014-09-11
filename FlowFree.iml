@@ -4,11 +4,7 @@
     <facet type="android" name="Android">
       <configuration>
         <proGuardCfgFiles>
-<<<<<<< HEAD
           <file>file://C:/Program Files (x86)/Java/jdk1.7.0_25/tools/proguard/proguard-android.txt</file>
-=======
-          <file>file://C:/Program Files/Java/jdk1.7.0_25/tools/proguard/proguard-android.txt</file>
->>>>>>> 3023969a129bbba662582030af232b2a34b657af
         </proGuardCfgFiles>
         <option name="UPDATE_PROPERTY_FILES" value="true" />
       </configuration>
