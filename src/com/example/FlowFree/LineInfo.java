@@ -7,9 +7,11 @@ import java.util.ArrayList;
  */
 public class LineInfo {
 	public ArrayList<Line> allLines;
+	private final int NUM_CELLS;
 
-	public LineInfo(ArrayList<Line> lines){
+	public LineInfo(ArrayList<Line> lines, int NUM_CELLS){
 		allLines = lines;
+		this.NUM_CELLS = NUM_CELLS;
 	}
 
 	public boolean allComplete(){

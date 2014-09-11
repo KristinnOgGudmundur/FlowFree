@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board extends View {
@@ -17,9 +18,10 @@ public class Board extends View {
     private Rect m_rect = new Rect();
     private Paint m_paintGrid  = new Paint();
     private Paint m_paintPath  = new Paint();
+	private LineInfo m_lineInfo;
     private Path m_path = new Path();
 
-    private Cellpath m_cellPath = new Cellpath();
+    private Cellpath m_currentCellPath = null;
 
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
@@ -50,7 +52,15 @@ public class Board extends View {
         m_paintPath.setStrokeCap( Paint.Cap.ROUND );
         m_paintPath.setStrokeJoin( Paint.Join.ROUND );
         m_paintPath.setAntiAlias( true );
+
+		setupBoard();
     }
+
+	private void setupBoard(){
+		ArrayList<Line> theLines = new ArrayList<Line>();
+		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS, NUM_CELLS)));
+		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
+	}
 
     @Override
     protected void onMeasure( int widthMeasureSpec, int heightMeasureSpec ) {
@@ -71,7 +81,7 @@ public class Board extends View {
 
     @Override
     protected void onDraw( Canvas canvas ) {
-
+		//Draw the grid
         for ( int r=0; r<NUM_CELLS; ++r ) {
             for (int c = 0; c<NUM_CELLS; ++c) {
                 int x = colToX( c );
@@ -80,19 +90,24 @@ public class Board extends View {
                 canvas.drawRect( m_rect, m_paintGrid );
             }
         }
-        m_path.reset();
-        if ( !m_cellPath.isEmpty() ) {
-            List<Coordinate> colist = m_cellPath.getCoordinates();
-            Coordinate co = colist.get( 0 );
-            m_path.moveTo( colToX(co.getCol()) + m_cellWidth / 2,
-                           rowToY(co.getRow()) + m_cellHeight / 2 );
-            for ( int i=1; i<colist.size(); ++i ) {
-                co = colist.get(i);
-                m_path.lineTo( colToX(co.getCol()) + m_cellWidth / 2,
-                                rowToY(co.getRow()) + m_cellHeight / 2 );
-            }
-        }
-        canvas.drawPath( m_path, m_paintPath);
+
+		for(Line l : m_lineInfo.allLines) {
+			//Reset the pencil
+			m_path.reset();
+			Cellpath thePath = l.getPath();
+			if (!thePath.isEmpty()) {
+				List<Coordinate> colist = thePath.getCoordinates();
+				Coordinate co = colist.get(0);
+				m_path.moveTo(colToX(co.getCol()) + m_cellWidth / 2,
+						rowToY(co.getRow()) + m_cellHeight / 2);
+				for (int i = 1; i < colist.size(); ++i) {
+					co = colist.get(i);
+					m_path.lineTo(colToX(co.getCol()) + m_cellWidth / 2,
+							rowToY(co.getRow()) + m_cellHeight / 2);
+				}
+			}
+			canvas.drawPath(m_path, m_paintPath);
+		}
     }
 
     private boolean areNeighbours( int c1, int r1, int c2, int r2 ) {
@@ -106,24 +121,26 @@ public class Board extends View {
         int y = (int) event.getY();
         int c = xToCol( x );
         int r = yToRow( y );
+		Coordinate theCoordinate = new Coordinate(c, r);
 
         if ( c >= NUM_CELLS || r >= NUM_CELLS ) {
             return true;
         }
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-            //m_path.reset();
-            //m_path.moveTo( colToX(c) + m_cellWidth / 2, rowToY(r) + m_cellHeight / 2 );
-            m_cellPath.reset();
-            m_cellPath.append( new Coordinate(c,r) );
+			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
+            if(m_currentCellPath == null){
+				return false;
+			}
+            m_currentCellPath.reset();
+            m_currentCellPath.append( new Coordinate(c,r) );
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
-            //m_path.lineTo( colToX(c) + m_cellWidth / 2, rowToY(r) + m_cellHeight / 2 );
-            if ( !m_cellPath.isEmpty() ) {
-                List<Coordinate> coordinateList = m_cellPath.getCoordinates();
+            if ( !m_currentCellPath.isEmpty() ) {
+                List<Coordinate> coordinateList = m_currentCellPath.getCoordinates();
                 Coordinate last = coordinateList.get(coordinateList.size()-1);
-                if ( areNeighbours(last.getCol(),last.getRow(), c, r)) {
-                    m_cellPath.append(new Coordinate(c, r));
+                if(last.areNeighbours(theCoordinate)){
+                    m_currentCellPath.append(new Coordinate(c, r));
                     invalidate();
                 }
             }

@@ -11,8 +11,7 @@ public class Line {
 	public Line(Coordinate start, Coordinate end){
 		this.start = start;
 		this.end = end;
-		//path = null or new?
-		path = null;
+		path = new Cellpath();
 	}
 
 	public boolean complete(){
