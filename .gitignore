@@ -12,4 +12,4 @@
 hs_err_pid*
 
 # Personal settings for intelliJ
-.idea/workspace.xml
+".idea/workspace.xml"
