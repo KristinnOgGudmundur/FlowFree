@@ -31,4 +31,9 @@ public class LineInfo {
 		}
 		return null;
 	}
+
+	public void addToCellPath(Cellpath p, Coordinate c){
+		//TODO: Implement
+		//The logic of legal additions should be called in this function
+	}
 }
