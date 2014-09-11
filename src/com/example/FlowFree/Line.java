@@ -25,4 +25,8 @@ public class Line {
 	public Cellpath getPath(){
 		return path;
 	}
+
+	public boolean contains(Coordinate theCoordinate){
+		return start.equals(theCoordinate) || end.equals(theCoordinate) || path.contains(theCoordinate);
+	}
 }

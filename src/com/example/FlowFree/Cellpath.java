@@ -34,6 +34,15 @@ public class Cellpath {
         return m_path.isEmpty();
     }
 
+	public boolean contains(Coordinate theCoordinate){
+		for(Coordinate c : m_path){
+			if(c.equals(theCoordinate)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean contains(Coordinate a, Coordinate b){
 		boolean containsA = false;
 		boolean containsB = false;

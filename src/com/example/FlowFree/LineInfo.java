@@ -40,8 +40,30 @@ public class LineInfo {
 		//The logic of legal additions should be called in this function
 		List<Coordinate> coordinateList = p.getCoordinates();
 		Coordinate last = coordinateList.get(coordinateList.size()-1);
-		if(last.areNeighbours(c)){
+		Line theLine = getLine(p);
+		if(theLine == null){
+			throw new NullPointerException("There is no line with that cellpath. WAT!");
+		}
+		if(last.areNeighbours(c) && (!cellIsFull(c) || theLine.isStartingPoint(c))){
 			p.append(c);
 		}
+	}
+
+	private boolean cellIsFull(Coordinate theCoordinate){
+		for(Line l : allLines){
+			if(l.contains(theCoordinate)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private Line getLine(Cellpath p){
+		for(Line l : allLines){
+			if(l.getPath().equals(p)){
+				return l;
+			}
+		}
+		return null;
 	}
 }
