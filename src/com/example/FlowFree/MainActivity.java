@@ -24,5 +24,8 @@ public class MainActivity extends Activity {
 		if(id == R.id.button_play){
 			startActivity(new Intent(this, PlayActivity.class));
 		}
+        else{
+            startActivity(new Intent(this, OptionsActivity.class));
+        }
 	}
 }
