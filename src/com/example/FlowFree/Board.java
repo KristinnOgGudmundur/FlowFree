@@ -58,7 +58,8 @@ public class Board extends View {
 
 	private void setupBoard(){
 		ArrayList<Line> theLines = new ArrayList<Line>();
-		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS, NUM_CELLS)));
+		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS - 1, NUM_CELLS - 1)));
+		theLines.add(new Line(new Coordinate(1,1), new Coordinate(2, 2)));
 		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
 	}
 
