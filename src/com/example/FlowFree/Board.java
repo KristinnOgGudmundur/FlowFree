@@ -5,6 +5,7 @@ import android.graphics.*;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,6 @@ public class Board extends View {
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
 		m_paintGrid.setStrokeWidth(8);
@@ -51,8 +51,8 @@ public class Board extends View {
 
 	private void setupBoard(){
 		ArrayList<Line> theLines = new ArrayList<Line>();
-		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS - 1, NUM_CELLS - 1), Color.GREEN));
-		theLines.add(new Line(new Coordinate(1,1), new Coordinate(2, 2), Color.BLUE));
+		theLines.add(new Line(new Coordinate(0, 0), new Coordinate(NUM_CELLS - 1, NUM_CELLS - 1), Color.GREEN));
+		theLines.add(new Line(new Coordinate(1, 1), new Coordinate(2, 2), Color.BLUE));
 		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
 	}
 
@@ -145,6 +145,11 @@ public class Board extends View {
 				invalidate();
             }
         }
+		else if(event.getAction() == MotionEvent.ACTION_UP){
+			if(m_lineInfo.allComplete()){
+				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
+			}
+		}
         return true;
     }
 }

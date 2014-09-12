@@ -1,8 +1,6 @@
 package com.example.FlowFree;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 
 /**
