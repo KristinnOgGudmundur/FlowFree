@@ -62,7 +62,7 @@ public class LineInfo {
 		if(theLine == null){
 			throw new NullPointerException("There is no line with that cellpath. WAT!");
 		}
-		if(last.areNeighbours(c) && (!cellIsFull(c) || theLine.isStartingPoint(c))){
+		if(last.areNeighbours(c) && (!cellIsFull(c) || theLine.isStartingPoint(c)) && !theLine.complete()){
 			p.append(c);
 		}
 	}
