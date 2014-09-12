@@ -17,10 +17,9 @@ public class Board extends View {
 
     private Rect m_rect = new Rect();
     private Paint m_paintGrid  = new Paint();
-    private Paint m_paintPath  = new Paint();
 	private LineInfo m_lineInfo;
     private Path m_path = new Path();
-    private float m_radius = 1;
+    private float m_radius = 30;
 
     private Cellpath m_currentCellPath = null;
 
@@ -47,20 +46,13 @@ public class Board extends View {
         m_paintGrid.setColor( Color.GRAY );
 		m_paintGrid.setStrokeWidth(8);
 
-        m_paintPath.setStyle( Paint.Style.STROKE );
-        m_paintPath.setColor(Color.GREEN);
-        m_paintPath.setStrokeWidth(32);
-        m_paintPath.setStrokeCap( Paint.Cap.ROUND );
-        m_paintPath.setStrokeJoin( Paint.Join.ROUND );
-        m_paintPath.setAntiAlias( true );
-
 		setupBoard();
     }
 
 	private void setupBoard(){
 		ArrayList<Line> theLines = new ArrayList<Line>();
-		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS - 1, NUM_CELLS - 1)));
-		theLines.add(new Line(new Coordinate(1,1), new Coordinate(2, 2)));
+		theLines.add(new Line(new Coordinate(0,0), new Coordinate(NUM_CELLS - 1, NUM_CELLS - 1), Color.GREEN));
+		theLines.add(new Line(new Coordinate(1,1), new Coordinate(2, 2), Color.BLUE));
 		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
 	}
 
@@ -108,19 +100,21 @@ public class Board extends View {
 							rowToY(co.getRow()) + m_cellHeight / 2);
 				}
 			}
-			canvas.drawPath(m_path, m_paintPath);
+            l.getPaint().setStyle(Paint.Style.STROKE);
+			canvas.drawPath(m_path, l.getPaint());
 
+            l.getPaint().setStyle(Paint.Style.FILL);
             //draw starting coordinates
             canvas.drawCircle(colToX(l.getStart().getCol()) + m_cellWidth / 2,  // float x
                               rowToY(l.getStart().getRow()) + m_cellWidth / 2,  // float y
                               m_radius,                                         // float radius
-                              m_paintPath);                                     // Paint paint
+                              l.getPaint());                                    // Paint Color
 
             //draw end coordinates
             canvas.drawCircle(colToX(l.getEnd().getCol()) + m_cellWidth / 2,    // float x
                               rowToY(l.getEnd().getRow()) + m_cellWidth / 2,    // float y
                               m_radius,                                         // float radius
-                              m_paintPath);                                     // Paint paint
+                              l.getPaint());                                    // Paint Color
 		}
     }
 
@@ -153,9 +147,4 @@ public class Board extends View {
         }
         return true;
     }
-
-	public void setColor(int color){
-		m_paintPath.setColor(color);
-		invalidate();
-	}
 }

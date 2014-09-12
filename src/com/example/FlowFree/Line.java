@@ -1,5 +1,8 @@
 package com.example.FlowFree;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+
 /**
  * Created by Gvendur Stefáns on 11.9.2014.
  */
@@ -7,12 +10,32 @@ public class Line {
 	private Coordinate start;
 	private Coordinate end;
 	private Cellpath path;
+    private Paint paint;
 
-	public Line(Coordinate start, Coordinate end){
+    public Line(Coordinate start, Coordinate end, int paintColor){
 		this.start = start;
 		this.end = end;
 		path = new Cellpath();
+        paint = new Paint();
+
+        paint.setStyle( Paint.Style.STROKE );
+        paint.setColor(paintColor);
+        paint.setStrokeWidth(32);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin( Paint.Join.ROUND );
+        paint.setAntiAlias( true );
 	}
+
+    public Paint getPaint()
+    {
+        return paint;
+    }
+
+    public void setPaint(Paint paint)
+    {
+        this.paint = paint;
+    }
+
     public Coordinate getStart()
     {
         return start;
