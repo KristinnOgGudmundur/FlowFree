@@ -134,12 +134,12 @@ public class Board extends View {
         }
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
+			//TODO: This will need to be refactored and encapsulated
 			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
             if(m_currentCellPath == null){
 				return false;
 			}
-            m_currentCellPath.reset();
-            m_currentCellPath.append( new Coordinate(c,r) );
+			m_currentCellPath.setEndAt(new Coordinate(c, r));
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
             if ( !m_currentCellPath.isEmpty() ) {

@@ -34,6 +34,29 @@ public class Cellpath {
         return m_path.isEmpty();
     }
 
+	public void setEndAt(Coordinate c){
+		/*
+		reset();
+		append( new Coordinate(c,r) );
+		*/
+		if(m_path.isEmpty()){
+			m_path.add(c);
+		}
+		else{
+			boolean seen = false;
+			for(int i = 0; i < m_path.size(); i++){
+				if(seen){
+					m_path.remove(i);
+				}
+				else{
+					if(m_path.get(i).equals(c)){
+						seen = true;
+					}
+				}
+			}
+		}
+	}
+
 	public boolean contains(Coordinate theCoordinate){
 		for(Coordinate c : m_path){
 			if(c.equals(theCoordinate)){
