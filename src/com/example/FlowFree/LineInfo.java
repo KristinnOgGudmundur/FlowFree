@@ -7,13 +7,31 @@ import java.util.List;
  * Created by Gvendur Stefáns on 11.9.2014.
  */
 public class LineInfo {
-	public ArrayList<Line> allLines;
+	private ArrayList<Line> allLines;
 	private final int NUM_CELLS;
 
 	public LineInfo(ArrayList<Line> lines, int NUM_CELLS){
 		allLines = lines;
 		this.NUM_CELLS = NUM_CELLS;
 	}
+
+    //get start coordinates
+    public Coordinate getStart(int index)
+    {
+        return allLines.get(index).getStart();
+    }
+
+    //get end coordinates
+    public Coordinate getEnd(int index)
+    {
+        return allLines.get(index).getEnd();
+    }
+
+    //get all lines
+    public ArrayList<Line> getAllLines()
+    {
+        return allLines;
+    }
 
 	public boolean allComplete(){
 		for(Line l : allLines){

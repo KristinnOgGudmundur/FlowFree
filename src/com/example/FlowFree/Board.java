@@ -20,6 +20,7 @@ public class Board extends View {
     private Paint m_paintPath  = new Paint();
 	private LineInfo m_lineInfo;
     private Path m_path = new Path();
+    private float m_radius = 1;
 
     private Cellpath m_currentCellPath = null;
 
@@ -92,7 +93,7 @@ public class Board extends View {
             }
         }
 
-		for(Line l : m_lineInfo.allLines) {
+		for(Line l : m_lineInfo.getAllLines()) {
 			//Reset the pencil
 			m_path.reset();
 			Cellpath thePath = l.getPath();
@@ -108,6 +109,18 @@ public class Board extends View {
 				}
 			}
 			canvas.drawPath(m_path, m_paintPath);
+
+            //draw starting coordinates
+            canvas.drawCircle(colToX(l.getStart().getCol()) + m_cellWidth / 2,  // float x
+                              rowToY(l.getStart().getRow()) + m_cellWidth / 2,  // float y
+                              m_radius,                                         // float radius
+                              m_paintPath);                                     // Paint paint
+
+            //draw end coordinates
+            canvas.drawCircle(colToX(l.getEnd().getCol()) + m_cellWidth / 2,    // float x
+                              rowToY(l.getEnd().getRow()) + m_cellWidth / 2,    // float y
+                              m_radius,                                         // float radius
+                              m_paintPath);                                     // Paint paint
 		}
     }
 

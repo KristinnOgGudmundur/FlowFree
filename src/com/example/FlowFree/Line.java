@@ -13,7 +13,15 @@ public class Line {
 		this.end = end;
 		path = new Cellpath();
 	}
+    public Coordinate getStart()
+    {
+        return start;
+    }
 
+    public Coordinate getEnd()
+    {
+        return end;
+    }
 	public boolean complete(){
 		return path.contains(start, end);
 	}
