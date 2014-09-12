@@ -51,10 +51,10 @@ public class Board extends View {
 
 	private void setupBoard(){
 		ArrayList<Line> theLines = new ArrayList<Line>();
-		theLines.add(new Line(new Coordinate(1,1), new Coordinate(1, 4), Color.YELLOW, 1));
-		theLines.add(new Line(new Coordinate(0,4), new Coordinate(2, 3), Color.RED, 2));
-        theLines.add(new Line(new Coordinate(2,4), new Coordinate(4, 3), Color.GREEN, 3));
-        theLines.add(new Line(new Coordinate(2,2), new Coordinate(3, 1), Color.BLUE, 4));
+		theLines.add(new Line(new Coordinate(1,1), new Coordinate(1, 4), Color.YELLOW));
+		theLines.add(new Line(new Coordinate(0,4), new Coordinate(2, 3), Color.RED));
+        theLines.add(new Line(new Coordinate(2,4), new Coordinate(4, 3), Color.GREEN));
+        theLines.add(new Line(new Coordinate(2,2), new Coordinate(3, 1), Color.BLUE));
 		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
 	}
 

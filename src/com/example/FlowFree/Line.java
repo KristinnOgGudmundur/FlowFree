@@ -1,5 +1,6 @@
 package com.example.FlowFree;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
@@ -10,9 +11,8 @@ public class Line {
 	private Coordinate end;
 	private Cellpath path;
     private Paint paint;
-	private int colorBlindNumber;
 
-    public Line(Coordinate start, Coordinate end, int paintColor, int colorBlindNumber){
+    public Line(Coordinate start, Coordinate end, int paintColor){
 		this.start = start;
 		this.end = end;
 		path = new Cellpath();
@@ -59,9 +59,5 @@ public class Line {
 
 	public boolean contains(Coordinate theCoordinate){
 		return start.equals(theCoordinate) || end.equals(theCoordinate) || path.contains(theCoordinate);
-	}
-
-	public int getColorBlindNumber(){
-		return colorBlindNumber;
 	}
 }
