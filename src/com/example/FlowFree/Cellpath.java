@@ -35,10 +35,15 @@ public class Cellpath {
     }
 
 	public void setEndAt(Coordinate c){
-		/*
+
+
 		reset();
-		append( new Coordinate(c,r) );
-		*/
+		append(c);
+
+
+		/*
+
+		//This code does not work
 		if(m_path.isEmpty()){
 			m_path.add(c);
 		}
@@ -55,6 +60,7 @@ public class Cellpath {
 				}
 			}
 		}
+		*/
 	}
 
 	public boolean contains(Coordinate theCoordinate){

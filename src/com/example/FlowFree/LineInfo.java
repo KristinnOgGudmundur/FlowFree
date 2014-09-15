@@ -46,8 +46,8 @@ public class LineInfo {
 	//or null, if no such path exists
 	public Cellpath getCellPath(Coordinate c){
 		for(Line l : allLines){
-			//if(l.isStartingPoint(c)){
-			if(l.contains(c)){
+			if(l.isStartingPoint(c)){
+			//if(l.contains(c)){
 				return l.getPath();
 			}
 		}
