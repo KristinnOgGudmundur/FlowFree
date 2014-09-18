@@ -42,7 +42,6 @@ public class Cellpath {
 
 
 		/*
-
 		//This code does not work
 		if(m_path.isEmpty()){
 			m_path.add(c);

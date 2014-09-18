@@ -42,9 +42,18 @@ public class LineInfo {
 		return true;
 	}
 
+	public Cellpath getCellPath(Coordinate c){
+		for(Line l : allLines){
+			if(l.contains(c)){
+				return l.getPath();
+			}
+		}
+		return null;
+	}
+
 	//Returns a cellpath that has c as a start point or end point
 	//or null, if no such path exists
-	public Cellpath getCellPath(Coordinate c){
+	public Cellpath getCellPathByStartPoint(Coordinate c){
 		for(Line l : allLines){
 			if(l.isStartingPoint(c)){
 			//if(l.contains(c)){
@@ -65,9 +74,18 @@ public class LineInfo {
 		}
 		if(last.areNeighbours(c) && !isStartOfOtherLine(p, c)){
 			if(!theLine.complete()) {
+				System.out.println("Line not complete");
+				Cellpath otherCellpath = getCellPath(c);
+				if(otherCellpath != null){
+					if(otherCellpath != p) {
+						System.out.println("Resetting");
+						getCellPath(c).reset();
+					}
+				}
 				p.append(c);
 			}
 			else if(p.contains(c)){
+				System.out.println("p.contains(c)");
 				p.append(c);
 			}
 		}
@@ -82,9 +100,18 @@ public class LineInfo {
 		return false;
 	}
 
-	private Line getLine(Cellpath p){
+	public Line getLine(Cellpath p){
 		for(Line l : allLines){
 			if(l.getPath().equals(p)){
+				return l;
+			}
+		}
+		return null;
+	}
+
+	public Line getLine(Coordinate c){
+		for(Line l : allLines){
+			if(l.contains(c)){
 				return l;
 			}
 		}

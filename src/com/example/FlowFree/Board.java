@@ -23,6 +23,7 @@ public class Board extends View {
     private float m_radius = 30;
 
     private Cellpath m_currentCellPath = null;
+	private Line m_currentLine = null;
 
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
@@ -135,11 +136,16 @@ public class Board extends View {
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
 			//TODO: This will need to be refactored and encapsulated
-			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
+			m_currentCellPath = m_lineInfo.getCellPathByStartPoint(theCoordinate);
             if(m_currentCellPath == null){
 				return false;
 			}
-			m_currentCellPath.setEndAt(new Coordinate(c, r));
+			m_currentLine = m_lineInfo.getLine(m_currentCellPath);
+			Coordinate currentCoordinate = new Coordinate(c, r);
+			if(m_currentLine.isStartingPoint(currentCoordinate)) {
+				m_currentCellPath.reset();
+				m_currentCellPath.append(currentCoordinate);
+			}
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
             if ( !m_currentCellPath.isEmpty() ) {
