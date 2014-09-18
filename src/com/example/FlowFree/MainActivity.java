@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 
 		int id = button.getId();
 		if(id == R.id.button_play){
-			startActivity(new Intent(this, PlayActivity.class));
+			startActivity(new Intent(this, GameChooserActivity.class));
 		}
         else{
             startActivity(new Intent(this, OptionsActivity.class));
