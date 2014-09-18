@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by yngvi on 5.9.2014.
+ * Reference: Yngvi-ATracepath
  */
 public class Cellpath {
 

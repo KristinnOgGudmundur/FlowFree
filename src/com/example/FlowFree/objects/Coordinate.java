@@ -2,6 +2,7 @@ package com.example.FlowFree.objects;
 
 /**
  * Created by yngvi on 5.9.2014.
+ * Reference: Yngvi-ATracePath
  */
 public class Coordinate {
 

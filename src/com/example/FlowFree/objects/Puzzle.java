@@ -6,12 +6,18 @@ import java.util.List;
 /**
  * Created by Kristinn on 18.9.2014.
  */
-public class Puzzle implements Serializable {
+
+/**
+ * A Pojo class for the puzzles
+ */
+public class Puzzle {
+
     private int fid;
     private int gridSize;
     private List<Line> lines;
     private int best;
 
+    //region Getters and Setters
     public int getFid() {
         return fid;
     }
@@ -43,4 +49,5 @@ public class Puzzle implements Serializable {
     public void setBest(int best) {
         this.best = best;
     }
+    //endregion
 }
