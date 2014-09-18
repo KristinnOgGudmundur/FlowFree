@@ -175,10 +175,16 @@ public class Board extends View {
         }
 		else if(event.getAction() == MotionEvent.ACTION_UP){
 			if(m_lineInfo.allComplete()){
+				//Puzzle complete
 				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
 				m_vibrator.vibrate(200);
 			}
 		}
         return true;
     }
+
+	public void reset(){
+		m_lineInfo.resetAll();
+		invalidate();
+	}
 }

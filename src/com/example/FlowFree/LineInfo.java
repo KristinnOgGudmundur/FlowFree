@@ -15,6 +15,12 @@ public class LineInfo {
 		this.NUM_CELLS = NUM_CELLS;
 	}
 
+	public void resetAll(){
+		for(Line l : allLines){
+			l.getPath().reset();
+		}
+	}
+
     //get start coordinates
     public Coordinate getStart(int index)
     {
