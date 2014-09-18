@@ -78,7 +78,8 @@ public class LineInfo {
 				if(otherCellpath != null){
 					if(otherCellpath != p) {
 						//We are tracing into another line
-						getCellPath(c).reset();
+						getCellPath(c).setEndAt(c);
+						getCellPath(c).removeLast();
 					}
 				}
 				p.append(c);

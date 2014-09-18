@@ -55,6 +55,10 @@ public class Cellpath {
 
 	}
 
+	public void removeLast(){
+		m_path.remove(m_path.size() - 1);
+	}
+
 	public boolean contains(Coordinate theCoordinate){
 		for(Coordinate c : m_path){
 			if(c.equals(theCoordinate)){
