@@ -63,7 +63,8 @@ public class LineInfo {
 		if(theLine == null){
 			throw new NullPointerException("There is no line with that cellpath. WAT!");
 		}
-		if(last.areNeighbours(c) && (!cellIsFull(c) || theLine.isStartingPoint(c)) && !theLine.complete()){
+		//if(last.areNeighbours(c) && (!cellIsFull(c) || theLine.isStartingPoint(c)) && !theLine.complete()){
+		if(last.areNeighbours(c) && !theLine.complete() && !isStartOfOtherLine(p, c)){
 			p.append(c);
 		}
 	}
@@ -84,5 +85,16 @@ public class LineInfo {
 			}
 		}
 		return null;
+	}
+
+	private boolean isStartOfOtherLine(Cellpath p, Coordinate c){
+		for(Line l : allLines){
+			if(!l.getPath().equals(p)){
+				if(l.isStartingPoint(c)){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
