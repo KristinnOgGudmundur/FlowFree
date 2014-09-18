@@ -16,6 +16,7 @@ public class Board extends View {
     private int NUM_CELLS = 6;
     private int m_cellWidth;
     private int m_cellHeight;
+    private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.WHITE};
 
     private Rect m_rect = new Rect();
     private Paint m_paintGrid  = new Paint();
@@ -58,17 +59,24 @@ public class Board extends View {
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
-		setupBoard();
     }
 
-	private void setupBoard(){
-		ArrayList<Line> theLines = new ArrayList<Line>();
-		theLines.add(new Line(new Coordinate(1,1), new Coordinate(1, 4), Color.YELLOW, 1));
-		theLines.add(new Line(new Coordinate(0,4), new Coordinate(2, 3), Color.RED, 2));
-        theLines.add(new Line(new Coordinate(2,4), new Coordinate(4, 3), Color.GREEN, 3));
-        theLines.add(new Line(new Coordinate(2,2), new Coordinate(3, 1), Color.BLUE, 4));
-		m_lineInfo = new LineInfo(theLines, NUM_CELLS);
-	}
+    public void setupBoard(Puzzle myPuzzle){
+
+        ArrayList<Line> theLines = new ArrayList<Line>();
+        NUM_CELLS = myPuzzle.getGridSize();
+        int color = 0;
+        for(Line l : myPuzzle.getLines())
+        {
+            theLines.add(new Line(new Coordinate(l.getStart().getCol(), l.getStart().getRow()),
+                    new Coordinate(l.getEnd().getCol(), l.getEnd().getRow()),
+                    COLORS[color],
+                    color));
+            color++;
+        }
+
+        m_lineInfo = new LineInfo(theLines, NUM_CELLS);
+    }
 
     @Override
     protected void onMeasure( int widthMeasureSpec, int heightMeasureSpec ) {
