@@ -13,17 +13,20 @@ import java.util.List;
 
 public class Board extends View {
 
+    //Grid info
     private int NUM_CELLS = 6;
     private int m_cellWidth;
     private int m_cellHeight;
-    private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.argb(255, 100, 100, 255), Color.CYAN, Color.MAGENTA};
-
-	private boolean colorBlindMode = true;
-
     private Rect m_rect = new Rect();
     private Paint m_paintGrid  = new Paint();
+
+    private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.argb(255, 100, 100, 255),
+                                  Color.CYAN, Color.MAGENTA};
+
+	private boolean colorBlindMode = true;
 	private Paint m_paintColorNumbers = new Paint();
-	private LineInfo m_lineInfo;
+
+    private LineInfo m_lineInfo;
     private Path m_path = new Path();
     private float m_radius = 30;
 
@@ -33,11 +36,7 @@ public class Board extends View {
 	private Vibrator m_vibrator;
 	private boolean wasComplete = false;
 
-    public void setNUM_CELLS(String tag)
-    {
-        NUM_CELLS = Character.getNumericValue(tag.charAt(0));
-    }
-
+    //region x&y to col&row
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
     }
@@ -53,6 +52,7 @@ public class Board extends View {
     private int rowToY( int row ) {
         return row * m_cellHeight + getPaddingTop() ;
     }
+    //endregion
 
     public Board(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,7 +65,6 @@ public class Board extends View {
 		m_paintColorNumbers.setColor(Color.BLACK);
 		m_paintColorNumbers.setTextSize(m_radius * 1.75f);
 		m_paintColorNumbers.setTextAlign(Paint.Align.CENTER);
-		//m_paintColorNumbers.setStrokeWidth(4);
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -78,15 +77,16 @@ public class Board extends View {
         int color = 0;
         for(Line l : myPuzzle.getLines())
         {
-            theLines.add(new Line(new Coordinate(l.getStart().getCol(), l.getStart().getRow()),
-                    new Coordinate(l.getEnd().getCol(), l.getEnd().getRow()),
-                    COLORS[color],
-                    color));
+            theLines.add(new Line(new Coordinate(l.getStart().getCol(), l.getStart().getRow()),     //start Coordinate
+                                  new Coordinate(l.getEnd().getCol(), l.getEnd().getRow()),         //end Coordinate
+                                  COLORS[color],                                                    //color int
+                                  color));                                                          //colorblind int
             color++;
         }
 
         m_lineInfo = new LineInfo(theLines, NUM_CELLS);
     }
+
 
     @Override
     protected void onMeasure( int widthMeasureSpec, int heightMeasureSpec ) {
@@ -142,6 +142,7 @@ public class Board extends View {
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
 
+            //colorblind numbers
 			canvas.drawText(l.getColorBlindString(),
 					colToX(l.getStart().getCol()) + m_cellWidth / 2,
 					rowToY(l.getStart().getRow()) + m_cellWidth / 2 + m_radius / 2,
@@ -153,6 +154,7 @@ public class Board extends View {
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
 
+            //colorblind numbers
 			canvas.drawText(l.getColorBlindString(),
 					colToX(l.getEnd().getCol()) + m_cellWidth / 2,
 					rowToY(l.getEnd().getRow()) + m_cellWidth / 2 + m_radius / 2,
@@ -163,7 +165,7 @@ public class Board extends View {
     @Override
     public boolean onTouchEvent( MotionEvent event ) {
 
-        int x = (int) event.getX();         // NOTE: event.getHistorical... might be needed.
+        int x = (int) event.getX();
         int y = (int) event.getY();
         int c = xToCol( x );
         int r = yToRow( y );

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by Kristinn on 18.9.2014.
+ * Reference: Yngvi-ADBTest
  */
 public class FlowAdapter {
 

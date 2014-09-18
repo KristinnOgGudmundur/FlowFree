@@ -17,6 +17,10 @@ public class GameChooserActivity extends ListActivity {
     private FlowAdapter mSA = new FlowAdapter( this );
     private SimpleCursorAdapter mCA;
 
+    /**
+     * runs when the Activity is created
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,15 +35,17 @@ public class GameChooserActivity extends ListActivity {
         setListAdapter(mCA);
     }
 
+    /**
+     * When a level button has been clicked
+     * @param view
+     */
     public void levelChosen(View view){
+
         Button button = (Button) view;
-
         int index = Character.getNumericValue(button.getText().charAt(0));
-
         Intent intent = new Intent(this, PlayActivity.class);
         intent.putExtra("index", index);
         startActivity(intent);
         finish();
-
     }
 }

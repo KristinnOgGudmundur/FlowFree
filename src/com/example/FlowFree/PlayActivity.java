@@ -13,41 +13,47 @@ import java.util.List;
  * Created by Gvendur Stefáns on 8.9.2014.
  */
 public class PlayActivity extends Activity {
-	private Board theBoard;
-    public static Puzzle myPuzzle;
+
+    private Board theBoard;
     private FlowAdapter mSA = new FlowAdapter( this );
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play);
 
+        Puzzle myPuzzle = new Puzzle();
+        List<Line> myLines = new ArrayList<Line>();
+
         Bundle extras = getIntent().getExtras();
         int index = extras.getInt("index");
 
+        //get our cursor and move it to the point of the index
         Cursor cursor = mSA.queryFlows();
         cursor.moveToPosition(index-1);
 
-        Puzzle myPuzzle = new Puzzle();
         myPuzzle.setFid(cursor.getInt(1));
         myPuzzle.setGridSize(cursor.getInt(2));
-        List<Line> myLines = new ArrayList<Line>();
+
+        char[] coors;
+        //Gather our flows from the database, some parsing is needed
         for(int i = 3; i < 8; i++ )
         {
-            char[] coors = cursor.getString(i).toCharArray();
+            coors = cursor.getString(i).toCharArray();
 
-            if(coors.equals(""))
-            {
-                break;
-            }
-            Coordinate start = new Coordinate(Character.getNumericValue(coors[1]), Character.getNumericValue(coors[3]));
-            Coordinate end = new Coordinate(Character.getNumericValue(coors[5]), Character.getNumericValue(coors[7]));
-            Line myline = new Line(start, end, i , 0);
-            myLines.add(myline);
+            if(coors.toString() == null){ break; }
 
+            Coordinate start = new Coordinate(Character.getNumericValue(coors[1]),
+                                              Character.getNumericValue(coors[3]));
+            Coordinate end   = new Coordinate(Character.getNumericValue(coors[5]),
+                                              Character.getNumericValue(coors[7]));
+
+            myLines.add(new Line(start, end, i , 0));
         }
         myPuzzle.setLines(myLines);
 
+        //set the board up with the given level fro database
         theBoard = (Board)findViewById(R.id.board);
         theBoard.setupBoard(myPuzzle);
 	}
