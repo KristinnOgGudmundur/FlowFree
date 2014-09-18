@@ -2,6 +2,7 @@ package com.example.FlowFree;
 
 import android.content.Context;
 import android.graphics.*;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,9 @@ public class Board extends View {
 
     private Cellpath m_currentCellPath = null;
 	private Line m_currentLine = null;
+
+	private Vibrator m_vibrator;
+	private boolean wasComplete = false;
 
     public void setNUM_CELLS(String tag)
     {
@@ -51,6 +55,8 @@ public class Board extends View {
         m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
 		m_paintGrid.setStrokeWidth(8);
+
+		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
 		setupBoard();
     }
@@ -141,7 +147,7 @@ public class Board extends View {
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
 			//TODO: This will need to be refactored and encapsulated
-			//m_currentCellPath = m_lineInfo.getCellPathByStartPoint(theCoordinate);
+			wasComplete = false;
 			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
             if(m_currentCellPath == null){
 				return false;
@@ -160,12 +166,17 @@ public class Board extends View {
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {
             if ( !m_currentCellPath.isEmpty() ) {
 				m_lineInfo.addToCellPath(m_currentCellPath, theCoordinate);
+				if(!wasComplete && m_currentLine.complete() && !m_lineInfo.allComplete()){
+					m_vibrator.vibrate(100);
+					wasComplete = true;
+				}
 				invalidate();
             }
         }
 		else if(event.getAction() == MotionEvent.ACTION_UP){
 			if(m_lineInfo.allComplete()){
 				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
+				m_vibrator.vibrate(200);
 			}
 		}
         return true;
