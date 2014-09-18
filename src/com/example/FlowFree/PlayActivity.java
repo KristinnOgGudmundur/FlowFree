@@ -48,8 +48,8 @@ public class PlayActivity extends Activity {
         }
         myPuzzle.setLines(myLines);
 
-        Board board = (Board)findViewById(R.id.board);
-        board.setupBoard(myPuzzle);
+        theBoard = (Board)findViewById(R.id.board);
+        theBoard.setupBoard(myPuzzle);
 	}
 
 	public void resetLevel(View view){
