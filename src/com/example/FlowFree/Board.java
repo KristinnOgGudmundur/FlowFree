@@ -16,10 +16,13 @@ public class Board extends View {
     private int NUM_CELLS = 6;
     private int m_cellWidth;
     private int m_cellHeight;
-    private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.WHITE};
+    private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.argb(255, 100, 100, 255), Color.CYAN, Color.MAGENTA};
+
+	private boolean colorBlindMode = true;
 
     private Rect m_rect = new Rect();
     private Paint m_paintGrid  = new Paint();
+	private Paint m_paintColorNumbers = new Paint();
 	private LineInfo m_lineInfo;
     private Path m_path = new Path();
     private float m_radius = 30;
@@ -56,6 +59,13 @@ public class Board extends View {
         m_paintGrid.setStyle( Paint.Style.STROKE );
         m_paintGrid.setColor( Color.GRAY );
 		m_paintGrid.setStrokeWidth(8);
+
+		m_paintColorNumbers.setStyle(Paint.Style.FILL);
+		m_paintColorNumbers.setStrokeWidth(4);
+		m_paintColorNumbers.setColor(Color.BLACK);
+		m_paintColorNumbers.setTextSize(m_radius * 1.75f);
+		m_paintColorNumbers.setTextAlign(Paint.Align.CENTER);
+		//m_paintColorNumbers.setStrokeWidth(4);
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -132,11 +142,21 @@ public class Board extends View {
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
 
+			canvas.drawText(l.getColorBlindString(),
+					colToX(l.getStart().getCol()) + m_cellWidth / 2,
+					rowToY(l.getStart().getRow()) + m_cellWidth / 2 + m_radius / 2,
+					m_paintColorNumbers);
+
             //draw end coordinates
             canvas.drawCircle(colToX(l.getEnd().getCol()) + m_cellWidth / 2,    // float x
                               rowToY(l.getEnd().getRow()) + m_cellWidth / 2,    // float y
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
+
+			canvas.drawText(l.getColorBlindString(),
+					colToX(l.getEnd().getCol()) + m_cellWidth / 2,
+					rowToY(l.getEnd().getRow()) + m_cellWidth / 2 + m_radius / 2,
+					m_paintColorNumbers);
 		}
     }
 

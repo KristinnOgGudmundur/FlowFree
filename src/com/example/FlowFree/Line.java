@@ -17,6 +17,7 @@ public class Line {
 		this.end = end;
 		path = new Cellpath();
         paint = new Paint();
+		this.colorBlindNumber = colorBlindNumber;
 
         paint.setStyle( Paint.Style.STROKE );
         paint.setColor(paintColor);
@@ -61,7 +62,7 @@ public class Line {
 		return start.equals(theCoordinate) || end.equals(theCoordinate) || path.contains(theCoordinate);
 	}
 
-	public int getColorBlindNumber(){
-		return colorBlindNumber;
+	public String getColorBlindString(){
+		return colorBlindNumber + "";
 	}
 }
