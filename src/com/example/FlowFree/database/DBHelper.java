@@ -1,4 +1,4 @@
-package com.example.FlowFree;
+package com.example.FlowFree.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

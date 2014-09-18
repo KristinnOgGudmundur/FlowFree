@@ -1,7 +1,8 @@
-package com.example.FlowFree;
+package com.example.FlowFree.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import com.example.FlowFree.R;
 
 /**
  * Created by Kristinn on 11.9.2014.

@@ -1,4 +1,4 @@
-package com.example.FlowFree;
+package com.example.FlowFree.objects;
 
 /**
  * Created by yngvi on 5.9.2014.

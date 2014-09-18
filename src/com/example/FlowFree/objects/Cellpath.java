@@ -1,4 +1,4 @@
-package com.example.FlowFree;
+package com.example.FlowFree.objects;
 
 import java.util.ArrayList;
 import java.util.List;

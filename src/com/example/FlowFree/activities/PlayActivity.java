@@ -1,10 +1,16 @@
-package com.example.FlowFree;
+package com.example.FlowFree.activities;
 
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.example.FlowFree.*;
+import com.example.FlowFree.database.FlowAdapter;
+import com.example.FlowFree.objects.Board;
+import com.example.FlowFree.objects.Coordinate;
+import com.example.FlowFree.objects.Line;
+import com.example.FlowFree.objects.Puzzle;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.FlowFree;
+package com.example.FlowFree.objects;
 
 import android.graphics.Paint;
 
