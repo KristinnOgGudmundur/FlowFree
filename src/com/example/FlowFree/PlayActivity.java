@@ -12,6 +12,10 @@ public class PlayActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.play);
 
+        Bundle b = getIntent().getExtras();
+        String tag = b.getString("tag");
+
 		Board board = (Board)findViewById(R.id.board);
+        board.setNUM_CELLS(tag);
 	}
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Board extends View {
 
-    private final int NUM_CELLS = 5;
+    private int NUM_CELLS = 6;
     private int m_cellWidth;
     private int m_cellHeight;
 
@@ -24,6 +24,11 @@ public class Board extends View {
 
     private Cellpath m_currentCellPath = null;
 	private Line m_currentLine = null;
+
+    public void setNUM_CELLS(String tag)
+    {
+        NUM_CELLS = Character.getNumericValue(tag.charAt(0));
+    }
 
     private int xToCol( int x ) {
         return (x - getPaddingLeft()) / m_cellWidth;
