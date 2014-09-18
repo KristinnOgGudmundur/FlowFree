@@ -35,14 +35,6 @@ public class Cellpath {
     }
 
 	public void setEndAt(Coordinate c){
-
-
-		reset();
-		append(c);
-
-
-		/*
-		//This code does not work
 		if(m_path.isEmpty()){
 			m_path.add(c);
 		}
@@ -51,6 +43,7 @@ public class Cellpath {
 			for(int i = 0; i < m_path.size(); i++){
 				if(seen){
 					m_path.remove(i);
+					i--;
 				}
 				else{
 					if(m_path.get(i).equals(c)){
@@ -59,7 +52,7 @@ public class Cellpath {
 				}
 			}
 		}
-		*/
+
 	}
 
 	public boolean contains(Coordinate theCoordinate){
@@ -84,5 +77,15 @@ public class Cellpath {
 		}
 
 		return containsA && containsB;
+	}
+
+	@Override
+	public String toString(){
+		String returnValue = "";
+		for(Coordinate c : m_path){
+			returnValue += c.toString();
+		}
+
+		return returnValue;
 	}
 }

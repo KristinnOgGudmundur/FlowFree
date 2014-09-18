@@ -141,7 +141,8 @@ public class Board extends View {
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
 			//TODO: This will need to be refactored and encapsulated
-			m_currentCellPath = m_lineInfo.getCellPathByStartPoint(theCoordinate);
+			//m_currentCellPath = m_lineInfo.getCellPathByStartPoint(theCoordinate);
+			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
             if(m_currentCellPath == null){
 				return false;
 			}
@@ -150,6 +151,10 @@ public class Board extends View {
 			if(m_currentLine.isStartingPoint(currentCoordinate)) {
 				m_currentCellPath.reset();
 				m_currentCellPath.append(currentCoordinate);
+			}
+			else{
+				m_currentCellPath.setEndAt(currentCoordinate);
+				invalidate();
 			}
         }
         else if ( event.getAction() == MotionEvent.ACTION_MOVE ) {

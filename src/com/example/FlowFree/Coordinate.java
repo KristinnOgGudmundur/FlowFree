@@ -41,4 +41,9 @@ public class Coordinate {
 	public boolean areNeighbours(Coordinate other){
 		return Math.abs(this.getCol()-other.getCol()) + Math.abs(this.getRow()-other.getRow()) == 1;
 	}
+
+	@Override
+	public String toString(){
+		return "(" + m_col + "," + m_row + ")";
+	}
 }
