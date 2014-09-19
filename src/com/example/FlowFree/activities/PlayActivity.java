@@ -41,6 +41,7 @@ public class PlayActivity extends Activity {
 
         //get our cursor and move it to the point of the index
         Cursor cursor = mSA.queryFlows();
+
         cursor.moveToPosition(levelIndex-1);
 
         myPuzzle.setFid(cursor.getInt(1));
@@ -89,15 +90,22 @@ public class PlayActivity extends Activity {
 
 	public void previousPuzzle(View view){
 		Intent intent = new Intent(this, PlayActivity.class);
-		intent.putExtra("index", levelIndex - 1);
-		startActivity(intent);
-		finish();
+        if(levelIndex > 1)
+        {
+            intent.putExtra("index", levelIndex - 1);
+            startActivity(intent);
+            finish();
+        }
 	}
 
 	public void nextPuzzle(View view){
 		Intent intent = new Intent(this, PlayActivity.class);
-		intent.putExtra("index", levelIndex + 1);
-		startActivity(intent);
-		finish();
+        long count = mSA.count();
+        if(mSA.count() > levelIndex)
+        {
+            intent.putExtra("index", levelIndex + 1);
+            startActivity(intent);
+            finish();
+        }
 	}
 }

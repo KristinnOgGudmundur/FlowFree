@@ -3,6 +3,7 @@ package com.example.FlowFree.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -83,4 +84,8 @@ public Cursor queryFlows( int fid) {
         cols, cols[1] + "" + fid, null, null, null, null);
         return cursor;
         }
+
+public long count() {
+        return DatabaseUtils.queryNumEntries(db, "flows");
+    }
 }
