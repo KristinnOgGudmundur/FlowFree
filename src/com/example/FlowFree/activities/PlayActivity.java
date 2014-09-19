@@ -66,7 +66,7 @@ public class PlayActivity extends Activity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         boolean sound = settings.getBoolean("sounds", false);
         boolean vibrations = settings.getBoolean("vibrations", false);
-		boolean colorblind = settings.getBoolean("ColorBlindMode", false);
+		boolean colorblind = settings.getBoolean("colorBlindMode", false);
 
         //set the board up with the given level from database
         theBoard = (Board)findViewById(R.id.board);

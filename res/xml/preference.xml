@@ -6,26 +6,26 @@
         <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="sounds"
-                android:title="Sounds"
-                android:summary="Enable sounds">
+                android:title="@string/optionSound"
+                android:summary="@string/optionSoundDetails">
         </CheckBoxPreference>
         <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="vibrations"
-                android:title="Vibrations"
-                android:summary="Enable vibrations">
+                android:title="@string/optionVibrations"
+                android:summary="@string/optionVibrationsDetails">
         </CheckBoxPreference>
 		<CheckBoxPreference
 				android:defaultValue="false"
-				android:key="ColorBlindMode"
-				android:title="ColorBlindMode"
-				android:summary="Colorblind mode">
+				android:key="colorBlindMode"
+				android:title="@string/optionColorBlindMode"
+				android:summary="@string/optionColorBlindModeDetails">
 		</CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory
             android:title="Reset">
-        <Preference android:title="Reset"
-                    android:key="reset"
-                    android:summary="Reset all progress"/>
+        <Preference android:key="reset"
+					android:title="@string/optionReset"
+                    android:summary="@string/optionResetDetails"/>
     </PreferenceCategory>
 </PreferenceScreen>

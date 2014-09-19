@@ -7,12 +7,12 @@
     <Button android:id="@+id/button_play"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="Play"
+			android:text="@string/buttonPlay"
 			android:onClick="buttonClick"/>
     <Button android:id="@+id/button_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Options"
+            android:text="@string/buttonOptions"
             android:onClick="buttonClick"/>
 </LinearLayout>
 

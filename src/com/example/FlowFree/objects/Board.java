@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.FlowFree.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,6 @@ public class Board extends View {
 		m_paintColorNumbers.setTextAlign(Paint.Align.CENTER);
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-
     }
 
     public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations, boolean colorblind){
@@ -250,8 +250,9 @@ public class Board extends View {
     }
 
 	private void updateTexts(){
-		flowsComplete.setText("Flows: " + m_lineInfo.getFlowsComplete() + "/" + m_lineInfo.getNumberOfLines());
-		fillPercentage.setText(m_lineInfo.getFillPercentage() + "% full");
+		Context theContext = getContext();
+		flowsComplete.setText(theContext.getString(R.string.flowsComplete) + (m_lineInfo.getFlowsComplete() + "/" + m_lineInfo.getNumberOfLines()));
+		fillPercentage.setText(m_lineInfo.getFillPercentage() + theContext.getString(R.string.fillPercentage));
 	}
 
 	public void reset(){

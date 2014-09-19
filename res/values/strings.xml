@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FlowFree</string>
+	<string name="buttonPlay">Play</string>
+	<string name="buttonOptions">Options</string>
+
+	<string name="optionSound">Sounds</string>
+	<string name="optionSoundDetails">Enable sounds</string>
+	<string name="optionVibrations">Vibrations</string>
+	<string name="optionVibrationsDetails">Enable vibrations</string>
+	<string name="optionColorBlindMode">Colorblind mode</string>
+	<string name="optionColorBlindModeDetails">Adds numbers to each line</string>
+	<string name="optionReset">Reset</string>
+	<string name="optionResetDetails">Resets all progress</string>
+
+	<string name="flowsComplete">"Flows: "</string>
+	<string name="fillPercentage">% full</string>
 </resources>
