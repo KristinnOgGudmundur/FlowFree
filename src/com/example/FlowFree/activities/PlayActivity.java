@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import com.example.FlowFree.*;
 import com.example.FlowFree.database.FlowAdapter;
 import com.example.FlowFree.objects.Board;
@@ -64,10 +65,16 @@ public class PlayActivity extends Activity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         boolean sound = settings.getBoolean("sounds", false);
         boolean vibrations = settings.getBoolean("vibrations", false);
+		boolean colorblind = settings.getBoolean("ColorBlindMode", false);
 
         //set the board up with the given level from database
         theBoard = (Board)findViewById(R.id.board);
-        theBoard.setupBoard(myPuzzle, sound, vibrations);
+
+		TextView flows = (TextView)findViewById(R.id.flowsComplete);
+		TextView fillPercentage = (TextView)findViewById(R.id.fillPercentage);
+
+        theBoard.setupBoard(myPuzzle, sound, vibrations, colorblind);
+		theBoard.setTextViews(flows, fillPercentage);
 	}
 
 	public void resetLevel(View view){
@@ -77,5 +84,13 @@ public class PlayActivity extends Activity {
 		if(id == R.id.button_reset){
 			theBoard.reset();
 		}
+	}
+
+	public void previousPuzzle(View view){
+
+	}
+
+	public void nextPuzzle(View view){
+
 	}
 }

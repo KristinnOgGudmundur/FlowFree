@@ -35,6 +35,10 @@ public class Cellpath {
         return m_path.isEmpty();
     }
 
+	public int getSize(){
+		return m_path.size();
+	}
+
 	public void setEndAt(Coordinate c){
 		if(m_path.isEmpty()){
 			m_path.add(c);

@@ -9,10 +9,14 @@ import java.util.List;
 public class LineInfo {
 	private ArrayList<Line> allLines;
 	private final int NUM_CELLS;
+	private int totalFill;
+	private int currentFill;
 
 	public LineInfo(ArrayList<Line> lines, int NUM_CELLS){
 		allLines = lines;
 		this.NUM_CELLS = NUM_CELLS;
+		this.totalFill = (NUM_CELLS * NUM_CELLS) - lines.size();
+		this.currentFill = 0;
 	}
 
 	public void resetAll(){
@@ -46,6 +50,34 @@ public class LineInfo {
 			}
 		}
 		return true;
+	}
+
+	public int getTotalFill(){
+		return totalFill;
+	}
+
+	public int getFlowsComplete(){
+		int flowsComplete = 0;
+		for(Line l : allLines){
+			if(l.complete()){
+				flowsComplete++;
+			}
+		}
+		return flowsComplete;
+	}
+
+	public int getNumberOfLines(){
+		return allLines.size();
+	}
+
+	public int getFillPercentage() {
+		currentFill = 0;
+		for (Line l : allLines) {
+			if (!l.getPath().isEmpty()) {
+				currentFill += l.getPath().getSize() - 1;
+			}
+		}
+		return (int) (((float) currentFill / (float) totalFill) * 100);
 	}
 
 	public Cellpath getCellPath(Coordinate c){

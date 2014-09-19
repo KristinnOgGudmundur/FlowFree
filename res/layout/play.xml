@@ -10,13 +10,55 @@
 			android:layout_height="wrap_content"
 			android:background="#444444"
 			/>
-	<LinearLayout android:layout_width="match_parent"
+	<TableLayout android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:orientation="horizontal">
-	<Button android:id="@+id/button_reset"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Reset"
-			android:onClick="resetLevel"/>
-	</LinearLayout>
+							android:stretchColumns="*">
+		<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+			<TextView
+				android:id="@+id/flowsComplete"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_column="0"
+				android:gravity="center"
+				android:text="Flows 0/5"
+				/>
+			<TextView
+					android:id="@+id/fillPercentage"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_column="1"
+					android:gravity="center"
+					android:text="50% full"
+					/>
+		</TableRow>
+		<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				>
+			<Button android:id="@+id/button_previousPuzzle"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_row="1"
+					android:layout_column="0"
+					android:text="Previous"
+					android:onClick="previousPuzzle"/>
+			<Button android:id="@+id/button_reset"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_row="1"
+				android:layout_column="1"
+				android:text="Reset"
+				android:onClick="resetLevel"/>
+			<Button android:id="@+id/button_nextPuzzle"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_row="1"
+					android:layout_column="2"
+					android:text="Next"
+					android:onClick="nextPuzzle"/>
+		</TableRow>
+	</TableLayout>
 </LinearLayout>

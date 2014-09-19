@@ -8,6 +8,7 @@ import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Board extends View {
     private final int[] COLORS = {Color.YELLOW, Color.RED, Color.GREEN, Color.argb(255, 100, 100, 255),
                                   Color.CYAN, Color.MAGENTA};
 
-	private boolean colorBlindMode = true;
+
 	private Paint m_paintColorNumbers = new Paint();
 
     private LineInfo m_lineInfo;
@@ -39,7 +40,10 @@ public class Board extends View {
 	private boolean wasComplete = false;
     private boolean useVibrations;
     private boolean useSound;
+	private boolean colorBlindMode = false;
 
+	private TextView flowsComplete;
+	private TextView fillPercentage;
 
 
     //region x&y to col&row
@@ -76,12 +80,13 @@ public class Board extends View {
 
     }
 
-    public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations){
+    public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations, boolean colorblind){
 
         ArrayList<Line> theLines = new ArrayList<Line>();
         NUM_CELLS = myPuzzle.getGridSize();
         useSound = sound;
         useVibrations = vibrations;
+		colorBlindMode = colorblind;
 
         int color = 0;
         for(Line l : myPuzzle.getLines())
@@ -95,6 +100,12 @@ public class Board extends View {
 
         m_lineInfo = new LineInfo(theLines, NUM_CELLS);
     }
+
+	public void setTextViews(TextView flows, TextView fill){
+		flowsComplete = flows;
+		fillPercentage = fill;
+		updateTexts();
+	}
 
 
     @Override
@@ -151,11 +162,14 @@ public class Board extends View {
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
 
-            //colorblind numbers
-			canvas.drawText(l.getColorBlindString(),
-					colToX(l.getStart().getCol()) + m_cellWidth / 2,
-					rowToY(l.getStart().getRow()) + m_cellWidth / 2 + m_radius / 2,
-					m_paintColorNumbers);
+            //colorblind numbers on start coordinates
+			if(colorBlindMode) {
+				canvas.drawText(l.getColorBlindString(),
+						colToX(l.getStart().getCol()) + m_cellWidth / 2,
+						rowToY(l.getStart().getRow()) + m_cellWidth / 2 + m_radius / 2,
+						m_paintColorNumbers);
+			}
+
 
             //draw end coordinates
             canvas.drawCircle(colToX(l.getEnd().getCol()) + m_cellWidth / 2,    // float x
@@ -163,11 +177,13 @@ public class Board extends View {
                               m_radius,                                         // float radius
                               l.getPaint());                                    // Paint Color
 
-            //colorblind numbers
-			canvas.drawText(l.getColorBlindString(),
-					colToX(l.getEnd().getCol()) + m_cellWidth / 2,
-					rowToY(l.getEnd().getRow()) + m_cellWidth / 2 + m_radius / 2,
-					m_paintColorNumbers);
+            //colorblind numbers on end coordinates
+			if(colorBlindMode) {
+				canvas.drawText(l.getColorBlindString(),
+						colToX(l.getEnd().getCol()) + m_cellWidth / 2,
+						rowToY(l.getEnd().getRow()) + m_cellWidth / 2 + m_radius / 2,
+						m_paintColorNumbers);
+			}
 		}
     }
 
@@ -227,8 +243,16 @@ public class Board extends View {
 
 			}
 		}
+
+		updateTexts();
+
         return true;
     }
+
+	private void updateTexts(){
+		flowsComplete.setText("Flows: " + m_lineInfo.getFlowsComplete() + "/" + m_lineInfo.getNumberOfLines());
+		fillPercentage.setText(m_lineInfo.getFillPercentage() + "% full");
+	}
 
 	public void reset(){
 		m_lineInfo.resetAll();

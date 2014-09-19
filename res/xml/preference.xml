@@ -15,6 +15,12 @@
                 android:title="Vibrations"
                 android:summary="Enable vibrations">
         </CheckBoxPreference>
+		<CheckBoxPreference
+				android:defaultValue="false"
+				android:key="ColorBlindMode"
+				android:title="ColorBlindMode"
+				android:summary="Colorblind mode">
+		</CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory
             android:title="Reset">
