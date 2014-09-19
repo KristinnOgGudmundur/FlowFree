@@ -1,6 +1,7 @@
 package com.example.FlowFree.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by Gvendur Stefáns on 8.9.2014.
  */
 public class PlayActivity extends Activity {
-
+	private int levelIndex;
     private Board theBoard;
     private FlowAdapter mSA = new FlowAdapter( this );
 
@@ -36,11 +37,11 @@ public class PlayActivity extends Activity {
         List<Line> myLines = new ArrayList<Line>();
 
         Bundle extras = getIntent().getExtras();
-        int index = extras.getInt("index");
+        levelIndex = extras.getInt("index");
 
         //get our cursor and move it to the point of the index
         Cursor cursor = mSA.queryFlows();
-        cursor.moveToPosition(index-1);
+        cursor.moveToPosition(levelIndex-1);
 
         myPuzzle.setFid(cursor.getInt(1));
         myPuzzle.setGridSize(cursor.getInt(2));
@@ -87,10 +88,16 @@ public class PlayActivity extends Activity {
 	}
 
 	public void previousPuzzle(View view){
-
+		Intent intent = new Intent(this, PlayActivity.class);
+		intent.putExtra("index", levelIndex - 1);
+		startActivity(intent);
+		finish();
 	}
 
 	public void nextPuzzle(View view){
-
+		Intent intent = new Intent(this, PlayActivity.class);
+		intent.putExtra("index", levelIndex + 1);
+		startActivity(intent);
+		finish();
 	}
 }
