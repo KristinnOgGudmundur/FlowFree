@@ -1,6 +1,8 @@
 package com.example.FlowFree.objects;
 
+import android.preference.PreferenceManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.*;
 import android.os.Vibrator;
 import android.util.AttributeSet;
@@ -35,6 +37,10 @@ public class Board extends View {
 
 	private Vibrator m_vibrator;
 	private boolean wasComplete = false;
+    private boolean useVibrations;
+    private boolean useSound;
+
+
 
     //region x&y to col&row
     private int xToCol( int x ) {
@@ -70,10 +76,13 @@ public class Board extends View {
 
     }
 
-    public void setupBoard(Puzzle myPuzzle){
+    public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations){
 
         ArrayList<Line> theLines = new ArrayList<Line>();
         NUM_CELLS = myPuzzle.getGridSize();
+        useSound = sound;
+        useVibrations = vibrations;
+
         int color = 0;
         for(Line l : myPuzzle.getLines())
         {
@@ -197,7 +206,11 @@ public class Board extends View {
             if ( !m_currentCellPath.isEmpty() ) {
 				m_lineInfo.addToCellPath(m_currentCellPath, theCoordinate);
 				if(!wasComplete && m_currentLine.complete() && !m_lineInfo.allComplete()){
-					m_vibrator.vibrate(100);
+
+                    if(useVibrations)
+                    {
+                        m_vibrator.vibrate(100);
+                    }
 					wasComplete = true;
 				}
 				invalidate();
@@ -207,7 +220,11 @@ public class Board extends View {
 			if(m_lineInfo.allComplete()){
 				//Puzzle complete
 				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
-				m_vibrator.vibrate(200);
+                if(useVibrations)
+                {
+                    m_vibrator.vibrate(200);
+                }
+
 			}
 		}
         return true;

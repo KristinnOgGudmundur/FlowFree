@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:title="Sound and vibrations">
+        <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="sounds"
+                android:title="Sounds"
+                android:summary="Enable sounds">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+                android:defaultValue="true"
+                android:key="vibrations"
+                android:title="Vibrations"
+                android:summary="Enable vibrations">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="Reset">
+        <Preference android:title="Reset"
+                    android:key="reset"
+                    android:summary="Reset all progress"/>
+    </PreferenceCategory>
+</PreferenceScreen>

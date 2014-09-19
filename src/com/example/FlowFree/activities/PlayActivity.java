@@ -1,8 +1,10 @@
 package com.example.FlowFree.activities;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import com.example.FlowFree.*;
@@ -59,9 +61,13 @@ public class PlayActivity extends Activity {
         }
         myPuzzle.setLines(myLines);
 
-        //set the board up with the given level fro database
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean sound = settings.getBoolean("sounds", false);
+        boolean vibrations = settings.getBoolean("vibrations", false);
+
+        //set the board up with the given level from database
         theBoard = (Board)findViewById(R.id.board);
-        theBoard.setupBoard(myPuzzle);
+        theBoard.setupBoard(myPuzzle, sound, vibrations);
 	}
 
 	public void resetLevel(View view){
