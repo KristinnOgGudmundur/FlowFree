@@ -8,6 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import com.example.FlowFree.R;
 import com.example.FlowFree.database.FlowAdapter;
+import com.example.FlowFree.objects.Flow;
+import com.example.FlowFree.objects.XmlParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -24,6 +29,18 @@ public class MainActivity extends Activity {
 
         //if the app is running on your phone for the first time, then we will write to the database
         if (settings.getBoolean("is_first_time", true)) {
+
+            XmlParser myParser = new XmlParser();
+            List<Flow> insertFlows = new ArrayList<Flow>();
+
+            insertFlows = myParser.parseXML();
+
+            for(Flow f : insertFlows)
+            {
+                fa.insertFlows(f.getFid(),f.getSize(),f.getFlow1(),f.getFlow2(),f.getFlow3(),
+                                                      f.getFlow4(),f.getFlow5(),f.getFlow6());
+            }
+
             fa.insertFlows( 1, 5, "(2 2 3 1)", "(3 0 3 4)", "(2 0 0 4)", "(1 0 0 3)", "(2 4 3 3)", "" );
             fa.insertFlows( 2, 5, "(1 3 3 0)", "(2 4 4 3)", "(0 0 1 4)", "(2 2 3 1)", "(2 3 4 0)", "" );
             fa.insertFlows(3, 6, "(2 3 4 0)", "(0 0 0 4)", "(2 5 5 0)", "(0 5 1 0)", "(2 4 4 1)", "(2 0 2 2)");
