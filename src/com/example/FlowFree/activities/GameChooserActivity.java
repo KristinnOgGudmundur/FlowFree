@@ -45,10 +45,19 @@ public class GameChooserActivity extends ListActivity {
     public void levelChosen(View view){
 
         Button button = (Button) view;
-        int index = Character.getNumericValue(button.getText().charAt(0));
+
+        int index;
+        if(button.getText().length() == 2)
+        {
+            index = Character.getNumericValue(button.getText().charAt(1));
+            index = index + 10;
+        }
+        else{
+            index = Character.getNumericValue(button.getText().charAt(0));
+        }
+
         Intent intent = new Intent(this, PlayActivity.class);
         intent.putExtra("index", index);
         startActivity(intent);
-        finish();
     }
 }

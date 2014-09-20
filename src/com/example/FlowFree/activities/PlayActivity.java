@@ -47,20 +47,23 @@ public class PlayActivity extends Activity {
         myPuzzle.setFid(cursor.getInt(1));
         myPuzzle.setGridSize(cursor.getInt(2));
 
+        String coor;
         char[] coors;
         //Gather our flows from the database, some parsing is needed
         for(int i = 3; i < 8; i++ )
         {
-            coors = cursor.getString(i).toCharArray();
+            coor = cursor.getString(i);
 
-            if(coors.toString() == null){ break; }
+            if(!(coor.equals("")))
+            {
+                coors = coor.toCharArray();
+                Coordinate start = new Coordinate(Character.getNumericValue(coors[1]),
+                        Character.getNumericValue(coors[3]));
+                Coordinate end   = new Coordinate(Character.getNumericValue(coors[5]),
+                        Character.getNumericValue(coors[7]));
 
-            Coordinate start = new Coordinate(Character.getNumericValue(coors[1]),
-                                              Character.getNumericValue(coors[3]));
-            Coordinate end   = new Coordinate(Character.getNumericValue(coors[5]),
-                                              Character.getNumericValue(coors[7]));
-
-            myLines.add(new Line(start, end, i , 0));
+                myLines.add(new Line(start, end, i , 0));
+            }
         }
         myPuzzle.setLines(myLines);
 
