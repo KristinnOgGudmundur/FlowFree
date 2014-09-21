@@ -14,13 +14,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
 
     public static final String TableFlows = "flows";
-    public static final String[] TableFlowsCols = { "_id","fid" ,"size", "flow1", "flow2", "flow3", "flow4", "flow5", "flow6" };
+    public static final String[] TableFlowsCols = { "_id","fid" ,"size","finished", "flow1", "flow2", "flow3", "flow4", "flow5", "flow6" };
 
     private static final String sqlCreateTableFlows =
                     "CREATE TABLE flows(" +
                     " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " fid INTEGER NOT NULL," +
                     " size INTEGER," +
+                    " finished BOOLEAN," +
                     " flow1 TEXT," +
                     " flow2 TEXT," +
                     " flow3 TEXT," +

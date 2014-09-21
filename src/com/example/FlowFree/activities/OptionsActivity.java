@@ -15,6 +15,8 @@ public class OptionsActivity extends PreferenceActivity {
     {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference);
+
+        getActionBar().setTitle("options");
     }
 
 }

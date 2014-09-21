@@ -12,11 +12,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.FlowFree.R;
+import com.example.FlowFree.activities.PlayActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board extends View {
+public class Board extends View{
 
     //Grid info
     private int NUM_CELLS = 6;
@@ -251,7 +252,6 @@ public class Board extends View {
 		else if(event.getAction() == MotionEvent.ACTION_UP){
 			if(m_lineInfo.allComplete()){
 				//Puzzle complete
-				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
                 if(useVibrations)
                 {
                     m_vibrator.vibrate(250);
@@ -259,6 +259,7 @@ public class Board extends View {
 				if(useSound){
 					m_victorySound.start();
 				}
+                PlayActivity.show();
 			}
 		}
 

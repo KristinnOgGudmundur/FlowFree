@@ -1,6 +1,8 @@
 package com.example.FlowFree.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -22,11 +24,12 @@ import java.util.List;
 /**
  * Created by Gvendur Stefáns on 8.9.2014.
  */
-public class PlayActivity extends Activity {
+
+public class PlayActivity extends Activity{
 	private int levelIndex;
     private Board theBoard;
     private FlowAdapter mSA = new FlowAdapter( this );
-
+    private static AlertDialog.Builder continueDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,14 @@ public class PlayActivity extends Activity {
         myPuzzle.setFid(cursor.getInt(1));
         myPuzzle.setGridSize(cursor.getInt(2));
 
+        getActionBar().setTitle("Level " + myPuzzle.getFid() + " - " +
+                                           myPuzzle.getGridSize() + "x" +
+                                           myPuzzle.getGridSize());
+
         String coor;
         char[] coors;
         //Gather our flows from the database, some parsing is needed
-        for(int i = 3; i < 8; i++ )
+        for(int i = 4; i < 9; i++ )
         {
             coor = cursor.getString(i);
 
@@ -72,12 +79,32 @@ public class PlayActivity extends Activity {
         boolean vibrations = settings.getBoolean("vibrations", false);
 		boolean colorblind = settings.getBoolean("colorBlindMode", false);
 
-        //set the board up with the given level from database
+
+        cursor.close();
+
+        //build our dialog for the winning state
+        continueDialog = new AlertDialog.Builder(this);
+        continueDialog.setMessage("Level completed !");
+        continueDialog.setCancelable(true);
+        continueDialog.setPositiveButton("next level",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finishedPuzzle();
+                    }
+                });
+        continueDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
         theBoard = (Board)findViewById(R.id.board);
 
-		TextView flows = (TextView)findViewById(R.id.flowsComplete);
+        TextView flows = (TextView)findViewById(R.id.flowsComplete);
 		TextView fillPercentage = (TextView)findViewById(R.id.fillPercentage);
 
+        //set the board up with the given level from database
         theBoard.setupBoard(myPuzzle, sound, vibrations, colorblind);
 		theBoard.setTextViews(flows, fillPercentage);
 	}
@@ -101,14 +128,31 @@ public class PlayActivity extends Activity {
         }
 	}
 
-	public void nextPuzzle(View view){
+	public void finishedPuzzle(){
 		Intent intent = new Intent(this, PlayActivity.class);
         long count = mSA.count();
-        if(mSA.count() > levelIndex)
+        mSA.updateFinished(levelIndex, true);
+        if(count > levelIndex)
         {
             intent.putExtra("index", levelIndex + 1);
             startActivity(intent);
             finish();
         }
 	}
+
+    public void nextPuzzle(View view){
+        Intent intent = new Intent(this, PlayActivity.class);
+        long count = mSA.count();
+        if(count > levelIndex)
+        {
+            intent.putExtra("index", levelIndex + 1);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public static void show()
+    {
+        continueDialog.show();
+    }
 }

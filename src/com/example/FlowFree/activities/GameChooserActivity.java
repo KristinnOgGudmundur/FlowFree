@@ -28,10 +28,12 @@ public class GameChooserActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getActionBar().setTitle("Pick a game");
+
         Cursor cursor = mSA.queryFlows();
         String cols[] = DBHelper.TableFlowsCols;
-        String from[] = { cols[1], cols[2]};
-        int to[] = { R.id.s_fid , R.id.size};
+        String from[] = { cols[1], cols[2], cols[3]};
+        int to[] = { R.id.s_fid , R.id.size, R.id.finished};
         startManagingCursor( cursor );
         mCA = new SimpleCursorAdapter(this, R.layout.gamechooser, cursor, from, to );
 
