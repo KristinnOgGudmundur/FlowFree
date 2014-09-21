@@ -85,7 +85,7 @@ public class PlayActivity extends Activity{
         continueDialog.setPositiveButton("next level",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        nextPuzzle();
+                        finishedPuzzle();
                     }
                 });
         continueDialog.setNegativeButton("Cancel",
@@ -114,7 +114,7 @@ public class PlayActivity extends Activity{
 		}
 	}
 
-	public void previousPuzzle(){
+	public void previousPuzzle(View view){
 		Intent intent = new Intent(this, PlayActivity.class);
         if(levelIndex > 1)
         {
@@ -124,7 +124,7 @@ public class PlayActivity extends Activity{
         }
 	}
 
-	public void nextPuzzle(){
+	public void finishedPuzzle(){
 		Intent intent = new Intent(this, PlayActivity.class);
         long count = mSA.count();
         mSA.updateFinished(levelIndex, true);
@@ -135,6 +135,17 @@ public class PlayActivity extends Activity{
             finish();
         }
 	}
+
+    public void nextPuzzle(View view){
+        Intent intent = new Intent(this, PlayActivity.class);
+        long count = mSA.count();
+        if(count > levelIndex)
+        {
+            intent.putExtra("index", levelIndex + 1);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     public static void show()
     {
