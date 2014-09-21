@@ -23,6 +23,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        getActionBar().setTitle("Menu");
+
         SharedPreferences settings = getSharedPreferences("MyPrefs", 0);
 
         //if the app is running on your phone for the first time, then we will write to the database

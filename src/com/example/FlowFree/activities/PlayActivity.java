@@ -50,6 +50,10 @@ public class PlayActivity extends Activity{
         myPuzzle.setFid(cursor.getInt(1));
         myPuzzle.setGridSize(cursor.getInt(2));
 
+        getActionBar().setTitle("Level " + myPuzzle.getFid() + " - " +
+                                           myPuzzle.getGridSize() + "x" +
+                                           myPuzzle.getGridSize());
+
         String coor;
         char[] coors;
         //Gather our flows from the database, some parsing is needed
