@@ -4,6 +4,14 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
+
+	<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:scaleX="0.6"
+			android:scaleY="0.6"
+			android:contentDescription="@string/titleScreen"
+			android:src="@drawable/title" />
     <Button android:id="@+id/button_play"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
