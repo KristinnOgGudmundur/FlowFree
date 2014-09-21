@@ -1,5 +1,6 @@
 package com.example.FlowFree.objects;
 
+import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -38,6 +39,8 @@ public class Board extends View {
 	private Line m_currentLine = null;
 
 	private Vibrator m_vibrator;
+	private MediaPlayer m_mediaPlayer;
+	private MediaPlayer m_victorySound;
 	private boolean wasComplete = false;
     private boolean useVibrations;
     private boolean useSound;
@@ -78,6 +81,13 @@ public class Board extends View {
 		m_paintColorNumbers.setTextAlign(Paint.Align.CENTER);
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+		m_mediaPlayer = MediaPlayer.create(context, R.raw.tick);
+		m_mediaPlayer.setVolume(0.5f, 0.5f);
+		m_mediaPlayer.setLooping(false);
+
+		m_victorySound = MediaPlayer.create(context, R.raw.ding);
+		m_victorySound.setVolume(0.5f, 0.5f);
+		m_victorySound.setLooping(false);
     }
 
     public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations, boolean colorblind){
@@ -227,7 +237,13 @@ public class Board extends View {
                     {
                         m_vibrator.vibrate(100);
                     }
+					if(useSound){
+						m_mediaPlayer.start();
+					}
 					wasComplete = true;
+				}
+				else if(wasComplete && !m_currentLine.complete()){
+					wasComplete = false;
 				}
 				invalidate();
             }
@@ -238,9 +254,11 @@ public class Board extends View {
 				Toast.makeText(this.getContext(), "Puzzle complete", Toast.LENGTH_LONG).show();
                 if(useVibrations)
                 {
-                    m_vibrator.vibrate(200);
+                    m_vibrator.vibrate(250);
                 }
-
+				if(useSound){
+					m_victorySound.start();
+				}
 			}
 		}
 
