@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import com.example.FlowFree.R;
 import com.example.FlowFree.database.FlowAdapter;
-import com.example.FlowFree.objects.Flow;
-import com.example.FlowFree.objects.XmlParser;
+import com.example.FlowFree.objects.parser.Flow;
+import com.example.FlowFree.objects.parser.XmlParser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -37,7 +36,7 @@ public class MainActivity extends Activity {
             int i = 1;
             for(Flow f : insertFlows)
             {
-                fa.insertFlows(i,f.getSize(),f.getFlow1(),f.getFlow2(),f.getFlow3(),
+                fa.insertFlows(i,f.getSize(),false ,f.getFlow1(),f.getFlow2(),f.getFlow3(),
                                              f.getFlow4(),f.getFlow5(),f.getFlow6());
                 i++;
             }
