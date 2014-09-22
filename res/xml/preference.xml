@@ -2,19 +2,23 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-            android:title="Sound and vibrations">
-        <CheckBoxPreference
-                android:defaultValue="true"
+            android:title="@string/optionCategoryFeedback">
+        <EditTextPreference
+                android:defaultValue="50"
                 android:key="sounds"
+				android:inputType="number"
                 android:title="@string/optionSound"
                 android:summary="@string/optionSoundDetails">
-        </CheckBoxPreference>
+        </EditTextPreference>
         <CheckBoxPreference
                 android:defaultValue="true"
                 android:key="vibrations"
                 android:title="@string/optionVibrations"
                 android:summary="@string/optionVibrationsDetails">
         </CheckBoxPreference>
+	</PreferenceCategory>
+	<PreferenceCategory
+			android:title="@string/optionCategoryColorBlind">
 		<CheckBoxPreference
 				android:defaultValue="false"
 				android:key="colorBlindMode"
@@ -23,7 +27,7 @@
 		</CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory
-            android:title="Reset">
+            android:title="@string/optionCategoryReset">
         <Preference android:key="reset"
 					android:title="@string/optionReset"
                     android:summary="@string/optionResetDetails"/>

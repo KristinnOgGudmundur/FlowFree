@@ -5,8 +5,11 @@
 	<string name="buttonOptions">Options</string>
 	<string name="titleScreen">An image</string>
 
-	<string name="optionSound">Sounds</string>
-	<string name="optionSoundDetails">Enable sounds</string>
+	<string name="optionCategoryFeedback">Sound and vibrations</string>
+	<string name="optionCategoryColorBlind">Colorblind mode</string>
+	<string name="optionCategoryReset">Reset</string>
+	<string name="optionSound">Volume</string>
+	<string name="optionSoundDetails">Set volume of sound effects (0 - 100)</string>
 	<string name="optionVibrations">Vibrations</string>
 	<string name="optionVibrationsDetails">Enable vibrations</string>
 	<string name="optionColorBlindMode">Colorblind mode</string>

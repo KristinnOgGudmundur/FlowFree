@@ -75,8 +75,11 @@ public class PlayActivity extends Activity{
         myPuzzle.setLines(myLines);
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean sound = settings.getBoolean("sounds", false);
-        boolean vibrations = settings.getBoolean("vibrations", false);
+
+		String stringSound = settings.getString("sounds", "50");
+        int sound = Integer.parseInt(stringSound);
+
+		boolean vibrations = settings.getBoolean("vibrations", false);
 		boolean colorblind = settings.getBoolean("colorBlindMode", false);
 
 

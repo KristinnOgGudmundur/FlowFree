@@ -45,7 +45,7 @@ public class Board extends View{
 	private MediaPlayer m_victorySound;
 	private boolean wasComplete = false;
     private boolean useVibrations;
-    private boolean useSound;
+    private float soundVolume = 0.5f;
 	private boolean colorBlindMode = false;
 
 	private TextView flowsComplete;
@@ -83,7 +83,7 @@ public class Board extends View{
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
 		m_mediaPlayer = MediaPlayer.create(context, R.raw.tick);
-		m_mediaPlayer.setVolume(0.5f, 0.5f);
+		m_mediaPlayer.setVolume(soundVolume, soundVolume);
 		m_mediaPlayer.setLooping(false);
 
 		m_victorySound = MediaPlayer.create(context, R.raw.ding);
@@ -91,11 +91,14 @@ public class Board extends View{
 		m_victorySound.setLooping(false);
     }
 
-    public void setupBoard(Puzzle myPuzzle, boolean sound, boolean vibrations, boolean colorblind){
+    public void setupBoard(Puzzle myPuzzle, int sound, boolean vibrations, boolean colorblind){
 
         ArrayList<Line> theLines = new ArrayList<Line>();
         NUM_CELLS = myPuzzle.getGridSize();
-        useSound = sound;
+        soundVolume = sound / 100.0f;
+		if(soundVolume > 1.0f){
+			soundVolume = 1.0f;
+		}
         useVibrations = vibrations;
 		colorBlindMode = colorblind;
 
@@ -110,6 +113,8 @@ public class Board extends View{
         }
 
         m_lineInfo = new LineInfo(theLines, NUM_CELLS);
+
+		m_mediaPlayer.setVolume(soundVolume, soundVolume);
     }
 
 	public void setTextViews(TextView flows, TextView fill){
@@ -239,7 +244,7 @@ public class Board extends View{
                     {
                         m_vibrator.vibrate(100);
                     }
-					if(useSound){
+					if(soundVolume > 0.0f){
 						m_mediaPlayer.start();
 					}
 					wasComplete = true;
@@ -257,7 +262,7 @@ public class Board extends View{
                 {
                     m_vibrator.vibrate(250);
                 }
-				if(useSound){
+				if(soundVolume > 0.0f){
 					m_victorySound.start();
 				}
                 PlayActivity.show();
