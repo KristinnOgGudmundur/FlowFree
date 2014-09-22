@@ -34,7 +34,8 @@ public class Board extends View{
 
     private LineInfo m_lineInfo;
     private Path m_path = new Path();
-    private float m_radius = 30;
+
+	private float m_radius = 30;
 
     private Cellpath m_currentCellPath = null;
 	private Line m_currentLine = null;
@@ -78,7 +79,6 @@ public class Board extends View{
 		m_paintColorNumbers.setStyle(Paint.Style.FILL);
 		m_paintColorNumbers.setStrokeWidth(4);
 		m_paintColorNumbers.setColor(Color.BLACK);
-		m_paintColorNumbers.setTextSize(m_radius * 1.75f);
 		m_paintColorNumbers.setTextAlign(Paint.Align.CENTER);
 
 		m_vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -134,6 +134,8 @@ public class Board extends View{
         int sw = Math.max(1, (int) m_paintGrid.getStrokeWidth());
         m_cellWidth  = (xNew - getPaddingLeft() - getPaddingRight() - sw) / NUM_CELLS;
         m_cellHeight = (yNew - getPaddingTop() - getPaddingBottom() - sw) / NUM_CELLS;
+		m_radius = m_cellWidth / 4.75f;
+		m_paintColorNumbers.setTextSize(m_radius * 1.75f);
     }
 
     @Override
@@ -200,7 +202,7 @@ public class Board extends View{
 
     @Override
     public boolean onTouchEvent( MotionEvent event ) {
-
+		System.out.println("Radius: " + m_radius);
         int x = (int) event.getX();
         int y = (int) event.getY();
         int c = xToCol( x );
@@ -212,7 +214,6 @@ public class Board extends View{
         }
 
         if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
-			//TODO: This will need to be refactored and encapsulated
 			wasComplete = false;
 			m_currentCellPath = m_lineInfo.getCellPath(theCoordinate);
             if(m_currentCellPath == null){
