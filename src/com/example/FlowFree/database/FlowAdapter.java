@@ -81,6 +81,9 @@ public Cursor queryFlows( int fid) {
         }
 
 public long count() {
-        return DatabaseUtils.queryNumEntries(db, "flows");
+		openToRead();
+		long returnValue = DatabaseUtils.queryNumEntries(db, "flows");
+    	close();
+		return returnValue;
     }
 }

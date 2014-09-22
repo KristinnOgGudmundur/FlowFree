@@ -30,9 +30,9 @@ public class OptionsActivity extends PreferenceActivity {
 
 
         confirmDialog = new AlertDialog.Builder(this);
-        confirmDialog.setMessage("Are you sure");
+        confirmDialog.setMessage(R.string.confirm);
         confirmDialog.setCancelable(true);
-        confirmDialog.setPositiveButton("yes",
+        confirmDialog.setPositiveButton(R.string.yes,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         Cursor cursor = mSA.queryFlows();
@@ -46,7 +46,7 @@ public class OptionsActivity extends PreferenceActivity {
                         dialog.cancel();
                     }
                 });
-        confirmDialog.setNegativeButton("no",
+        confirmDialog.setNegativeButton(R.string.no,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

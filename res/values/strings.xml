@@ -5,6 +5,8 @@
 	<string name="buttonOptions">Options</string>
 	<string name="titleScreen">An image</string>
 
+	<string name="gameChooserTitle">Pick a level</string>
+
 	<string name="optionCategoryFeedback">Sound and vibrations</string>
 	<string name="optionCategoryColorBlind">Colorblind mode</string>
 	<string name="optionCategoryReset">Reset</string>
@@ -19,4 +21,12 @@
 
 	<string name="flowsComplete">"Flows: "</string>
 	<string name="fillPercentage">% full</string>
+
+	<string name="levelCompleted">Level completed !</string>
+	<string name="cancel">Cancel</string>
+	<string name="nextLevel">Next level</string>
+
+	<string name="confirm">Are you sure?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
 </resources>

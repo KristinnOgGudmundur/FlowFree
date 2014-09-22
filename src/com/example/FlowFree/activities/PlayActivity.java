@@ -57,7 +57,7 @@ public class PlayActivity extends Activity{
         String coor;
         char[] coors;
         //Gather our flows from the database, some parsing is needed
-        for(int i = 4; i < 9; i++ )
+        for(int i = 4; i < 10; i++ )
         {
             coor = cursor.getString(i);
 
@@ -87,15 +87,15 @@ public class PlayActivity extends Activity{
 
         //build our dialog for the winning state
         continueDialog = new AlertDialog.Builder(this);
-        continueDialog.setMessage("Level completed !");
+        continueDialog.setMessage(R.string.levelCompleted);
         continueDialog.setCancelable(true);
-        continueDialog.setPositiveButton("next level",
+        continueDialog.setPositiveButton(R.string.nextLevel,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finishedPuzzle();
                     }
                 });
-        continueDialog.setNegativeButton("Cancel",
+        continueDialog.setNegativeButton(R.string.cancel,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

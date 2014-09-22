@@ -207,7 +207,6 @@ public class Board extends View{
 
     @Override
     public boolean onTouchEvent( MotionEvent event ) {
-		System.out.println("Radius: " + m_radius);
         int x = (int) event.getX();
         int y = (int) event.getY();
         int c = xToCol( x );

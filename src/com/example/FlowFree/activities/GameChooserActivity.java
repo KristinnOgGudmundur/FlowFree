@@ -28,7 +28,7 @@ public class GameChooserActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getActionBar().setTitle("Pick a game");
+        getActionBar().setTitle(R.string.gameChooserTitle);
 
         Cursor cursor = mSA.queryFlows();
         String cols[] = DBHelper.TableFlowsCols;
