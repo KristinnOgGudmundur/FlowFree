@@ -3,9 +3,14 @@ package com.example.FlowFree.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import com.example.FlowFree.R;
 import com.example.FlowFree.database.FlowAdapter;
 import com.example.FlowFree.objects.parser.Flow;
@@ -44,6 +49,8 @@ public class MainActivity extends Activity {
             }
             settings.edit().putBoolean("is_first_time", false).commit();
         }
+
+		setImageSize();
     }
 
     /**
@@ -60,5 +67,20 @@ public class MainActivity extends Activity {
         else{
             startActivity(new Intent(this, OptionsActivity.class));
         }
+	}
+
+	public void setImageSize(){
+		ImageView theImage = (ImageView)findViewById(R.id.titleImage);
+		Display theDisplay = getWindowManager().getDefaultDisplay();
+		Point dimensions = new Point();
+		theDisplay.getSize(dimensions);
+		System.out.println("Width: " + dimensions.x + ", Height: " + dimensions.y);
+
+		int sideMargins = (int)(dimensions.x * 0.2);
+		int imageSize = (int)(dimensions.y * 0.75);
+
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, imageSize);
+		lp.setMargins(sideMargins,-sideMargins,sideMargins,-sideMargins);
+		theImage.setLayoutParams(lp);
 	}
 }
