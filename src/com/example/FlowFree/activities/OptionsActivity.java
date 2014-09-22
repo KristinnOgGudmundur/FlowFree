@@ -41,7 +41,7 @@ public class OptionsActivity extends PreferenceActivity {
                         long count = mSA.count();
                         for(int i = 0; i <= count; i++)
                         {
-                            mSA.updateFinished(i, false);
+                            mSA.updateFinished(i, 0);
                         }
                         dialog.cancel();
                     }

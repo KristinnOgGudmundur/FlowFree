@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import com.example.FlowFree.R;
 import com.example.FlowFree.activities.PlayActivity;
 import com.example.FlowFree.database.DBHelper;
@@ -32,10 +33,34 @@ public class GameChooserActivity extends ListActivity {
 
         Cursor cursor = mSA.queryFlows();
         String cols[] = DBHelper.TableFlowsCols;
-        String from[] = { cols[1], cols[2], cols[3]};
-        int to[] = { R.id.s_fid , R.id.size, R.id.finished};
+        String from[] = { cols[1], cols[2]};
+        int to[] = { R.id.s_fid , R.id.size};
         startManagingCursor( cursor );
         mCA = new SimpleCursorAdapter(this, R.layout.gamechooser, cursor, from, to );
+
+
+        mCA.setViewBinder( new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+
+                if(view.getId() == R.id.s_fid)
+                {
+                    view.setTag(cursor.getInt(cursor.getColumnIndex("fid")));
+
+                    if(cursor.getInt(cursor.getColumnIndex("finished")) == 1 )
+                    {
+                        ((Button)view).setText("x");
+                        return true;
+                    }
+                }
+                if(view.getId() == R.id.size)
+                {
+                    ((TextView)view).setText((cursor.getInt(cursor.getColumnIndex("size"))) + "x" + (cursor.getInt(cursor.getColumnIndex("size"))));
+                    return true;
+                }
+                return false;
+            }
+        });
 
         setListAdapter(mCA);
     }
@@ -49,13 +74,13 @@ public class GameChooserActivity extends ListActivity {
         Button button = (Button) view;
 
         int index;
-        if(button.getText().length() == 2)
+        if(button.getTag().toString().length() == 2)
         {
-            index = Character.getNumericValue(button.getText().charAt(1));
+            index = Character.getNumericValue(button.getTag().toString().charAt(1));
             index = index + 10;
         }
         else{
-            index = Character.getNumericValue(button.getText().charAt(0));
+            index = Character.getNumericValue(button.getTag().toString().charAt(0));
         }
 
         Intent intent = new Intent(this, PlayActivity.class);
