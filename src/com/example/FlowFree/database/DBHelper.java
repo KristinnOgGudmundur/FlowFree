@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     " _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " fid INTEGER NOT NULL," +
                     " size INTEGER," +
-                    " finished BOOLEAN," +
+                    " finished INTEGER," +
                     " flow1 TEXT," +
                     " flow2 TEXT," +
                     " flow3 TEXT," +

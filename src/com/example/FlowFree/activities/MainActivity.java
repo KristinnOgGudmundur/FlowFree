@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
             int i = 1;
             for(Flow f : insertFlows)
             {
-                fa.insertFlows(i,f.getSize(),false ,f.getFlow1(),f.getFlow2(),f.getFlow3(),
+                fa.insertFlows(i,f.getSize(),0 ,f.getFlow1(),f.getFlow2(),f.getFlow3(),
                                              f.getFlow4(),f.getFlow5(),f.getFlow6());
                 i++;
             }
