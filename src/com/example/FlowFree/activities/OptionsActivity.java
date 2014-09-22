@@ -39,7 +39,7 @@ public class OptionsActivity extends PreferenceActivity {
                         cursor.moveToFirst();
 
                         long count = mSA.count();
-                        for(int i = 0; i < count; i++)
+                        for(int i = 0; i <= count; i++)
                         {
                             mSA.updateFinished(i, false);
                         }
