@@ -22,7 +22,8 @@
 	<string name="flowsComplete">"Flows: "</string>
 	<string name="fillPercentage">% full</string>
 
-	<string name="levelCompleted">Level completed !</string>
+	<string name="levelCompleted">Level completed!</string>
+	<string name="levelNotFull">Level completed. But can you fill the grid?</string>
 	<string name="cancel">Cancel</string>
 	<string name="nextLevel">Next level</string>
 

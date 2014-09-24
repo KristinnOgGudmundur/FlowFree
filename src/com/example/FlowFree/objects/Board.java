@@ -264,7 +264,7 @@ public class Board extends View{
 				if(soundVolume > 0.0f){
 					m_victorySound.start();
 				}
-                PlayActivity.show();
+                PlayActivity.show(m_lineInfo.getFillPercentage() == 100);
 			}
 		}
 

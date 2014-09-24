@@ -87,7 +87,6 @@ public class PlayActivity extends Activity{
 
         //build our dialog for the winning state
         continueDialog = new AlertDialog.Builder(this);
-        continueDialog.setMessage(R.string.levelCompleted);
         continueDialog.setCancelable(true);
         continueDialog.setPositiveButton(R.string.nextLevel,
                 new DialogInterface.OnClickListener() {
@@ -159,8 +158,14 @@ public class PlayActivity extends Activity{
         }
     }
 
-    public static void show()
+    public static void show(boolean full)
     {
-        continueDialog.show();
+		if(full) {
+			continueDialog.setMessage(R.string.levelCompleted);
+		}
+		else{
+			continueDialog.setMessage(R.string.levelNotFull);
+		}
+		continueDialog.show();
     }
 }

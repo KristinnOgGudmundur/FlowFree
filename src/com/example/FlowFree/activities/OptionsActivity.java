@@ -60,6 +60,6 @@ public class OptionsActivity extends PreferenceActivity {
             }
         });
 
-        getActionBar().setTitle("Options");
+        getActionBar().setTitle(R.string.buttonOptions);
     }
 }
