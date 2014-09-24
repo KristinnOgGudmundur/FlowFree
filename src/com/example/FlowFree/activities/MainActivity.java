@@ -74,8 +74,7 @@ public class MainActivity extends Activity {
 		Display theDisplay = getWindowManager().getDefaultDisplay();
 		Point dimensions = new Point();
 		theDisplay.getSize(dimensions);
-		System.out.println("Width: " + dimensions.x + ", Height: " + dimensions.y);
-
+		
 		int sideMargins = (int)(dimensions.x * 0.2);
 		int imageSize = (int)(dimensions.y * 0.75);
 
